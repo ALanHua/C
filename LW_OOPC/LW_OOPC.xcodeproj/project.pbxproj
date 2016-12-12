@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		B813AA591DFD962C00798C9B /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = B813AA581DFD962C00798C9B /* main.c */; };
 		B8E6F19B1DFED6EC003C0E9C /* Rectangle.c in Sources */ = {isa = PBXBuildFile; fileRef = B8E6F1991DFED6EC003C0E9C /* Rectangle.c */; };
+		B8E6F19E1DFEEEF4003C0E9C /* Book.c in Sources */ = {isa = PBXBuildFile; fileRef = B8E6F19C1DFEEEF4003C0E9C /* Book.c */; };
+		B8E6F1A11DFEF292003C0E9C /* Author.c in Sources */ = {isa = PBXBuildFile; fileRef = B8E6F19F1DFEF292003C0E9C /* Author.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +31,10 @@
 		B8E6F1971DFD99DE003C0E9C /* lw_oopc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lw_oopc.h; sourceTree = "<group>"; };
 		B8E6F1991DFED6EC003C0E9C /* Rectangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Rectangle.c; sourceTree = "<group>"; };
 		B8E6F19A1DFED6EC003C0E9C /* Rectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rectangle.h; sourceTree = "<group>"; };
+		B8E6F19C1DFEEEF4003C0E9C /* Book.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Book.c; path = ../../../C/LW_OOPC/LW_OOPC/Book.c; sourceTree = "<group>"; };
+		B8E6F19D1DFEEEF4003C0E9C /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Book.h; path = ../../../C/LW_OOPC/LW_OOPC/Book.h; sourceTree = "<group>"; };
+		B8E6F19F1DFEF292003C0E9C /* Author.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Author.c; path = ../../../C/LW_OOPC/LW_OOPC/Author.c; sourceTree = "<group>"; };
+		B8E6F1A01DFEF292003C0E9C /* Author.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Author.h; path = ../../../C/LW_OOPC/LW_OOPC/Author.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +79,10 @@
 				B8E6F1991DFED6EC003C0E9C /* Rectangle.c */,
 				B8E6F19A1DFED6EC003C0E9C /* Rectangle.h */,
 				B8E6F1971DFD99DE003C0E9C /* lw_oopc.h */,
+				B8E6F19F1DFEF292003C0E9C /* Author.c */,
+				B8E6F1A01DFEF292003C0E9C /* Author.h */,
+				B8E6F19C1DFEEEF4003C0E9C /* Book.c */,
+				B8E6F19D1DFEEEF4003C0E9C /* Book.h */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -134,8 +144,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8E6F1A11DFEF292003C0E9C /* Author.c in Sources */,
 				B813AA591DFD962C00798C9B /* main.c in Sources */,
 				B8E6F19B1DFED6EC003C0E9C /* Rectangle.c in Sources */,
+				B8E6F19E1DFEEEF4003C0E9C /* Book.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
