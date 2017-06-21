@@ -30,12 +30,12 @@ WORD_NODE_S* initallocWordNode(char* name)
     pNode = (WORD_NODE_S*)malloc(sizeof(WORD_NODE_S));
     if (pNode != NULL) {
         pNode->name   = (char*)malloc(sizeof(nameLen));
-        if (pNode->name) {
+        if (!pNode->name) {
             free(pNode);
             return NULL;
         }
-        memcpy(pNode->name, name, nameLen);
-        pNode->count  = 0;
+        strcpy(pNode->name, name);
+        pNode->count  = 1;
         pNode->pNext  = NULL;
     }
     return pNode;
@@ -54,7 +54,7 @@ typedef struct tagWordListManage WORD_LIST_MANAGE;
 struct tagWordListManage
 {
     WORD_NODE_S* pWordHeader;
-    
+    FILE*        pDumpOutFile;
     // 节点管理
     WORD_NODE_S* (*getWordNode)(char* name);
     void         (*deleteWordNode)(WORD_NODE_S* pNode);
@@ -62,7 +62,7 @@ struct tagWordListManage
     int          (*add)(WORD_LIST_MANAGE* self,char* name);
     WORD_NODE_S* (*search)(WORD_LIST_MANAGE* self,char* name);
     int          (*delete)(WORD_LIST_MANAGE* self,char* name);
-    
+    void         (*dump)(WORD_LIST_MANAGE* self);
 //  析构
     void         (*dealloc)(WORD_LIST_MANAGE* self);
 };
@@ -83,6 +83,9 @@ void deallocWordListManage(WORD_LIST_MANAGE* self)
                 self->deleteWordNode(temp);
                 temp = NULL;
             }
+        }
+        if (self->pDumpOutFile) {
+            fclose(self->pDumpOutFile);
         }
         free(self);
         self = NULL;
@@ -113,13 +116,17 @@ int addToTail(WORD_LIST_MANAGE* self,char* pWordName)
         prev = pos;
     }
     
-    if ((result == 0) && !self->pWordHeader) {
+    if ((result == 0) && self->pWordHeader) {
         pos->count++;
     }else{
         // 添加节点
         pNewWord = self->getWordNode(pWordName);// 暂时不需要判断
+        if (pNewWord == NULL) {
+            printf("getWordNode error\n");
+            return -1;
+        }
         if (prev == NULL) {
-            pNewWord->pNext    = pos;
+            pNewWord->pNext    = self->pWordHeader;
             self->pWordHeader  = pNewWord;
         }else{
             prev->pNext        = pNewWord;
@@ -167,8 +174,66 @@ int deleteWord(WORD_LIST_MANAGE* self,char* pWordName)
     return -1;
 }
 
+void dumpWords(WORD_LIST_MANAGE* self)
+{
+    WORD_NODE_S* pos      = NULL;
+    
+    if (!self || !self->pDumpOutFile) {
+        return;
+    }
+    for (pos = self->pWordHeader; pos != NULL; pos = pos->pNext) {
+        fprintf(self->pDumpOutFile, "%20s:%5d\n",pos->name,pos->count);
+        fprintf(stdout, "%s:%d\n",pos->name,pos->count);
+    }
+}
+
+WORD_LIST_MANAGE* initallocWordListManage(char* pOutFilename)
+{
+    WORD_LIST_MANAGE* pListManage = NULL;
+    
+    pListManage = (WORD_LIST_MANAGE*)malloc(sizeof(WORD_LIST_MANAGE));
+    if (pListManage) {
+        if (pOutFilename) {
+            // 文件初始化
+            pListManage->pDumpOutFile = fopen(pOutFilename, "wb");
+            if (!pListManage->pDumpOutFile) {
+                free(pListManage);
+                return NULL;
+            }
+            // 链表初始化
+            pListManage->pWordHeader        = NULL;
+            pListManage->getWordNode        = initallocWordNode;
+            pListManage->deleteWordNode     = deallocWordNode;
+            pListManage->add                = addToTail;
+            pListManage->search             = searchWord;
+            pListManage->delete             = deleteWord;
+            pListManage->dump               = dumpWords;
+            pListManage->dealloc            = deallocWordListManage;
+        }
+    }
+    
+    return pListManage;
+}
+
+
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    printf("Hello, World!\n");
+    
+    WORD_LIST_MANAGE* pList = NULL;
+    
+    pList = initallocWordListManage("/Users/smartwater/Downloads/dump.txt");
+    if (!pList) {
+        printf("malloc list errot\n");
+        return -1;
+    }
+    
+    pList->add(pList,"bace");
+    pList->add(pList,"bace");
+    pList->add(pList,"baav");
+    pList->add(pList,"b1223");
+    pList->dump(pList);
+    
+    
+    pList->dealloc(pList);
+    
     return 0;
 }
