@@ -19,3 +19,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+This Week,I did two job.
+	Firstly，I fixed a bug about the black border of the video.
+The cause of this problem is that the ISP's crop parameters are not configured.In addition, I also adjusted the steps of audio playback to avoid some unknown problems.
+	Secondly，I learned some basic knowledge of c ++ language.I have mastered some c ++ syntax.For me, the hardest part of C ++ is STL（Standard Template Library).So far I do not know the principle of STL.Of course, if you do not understand object-oriented thinking, you need to learn a lot of things, such as packaging, inheritance and polymorphism.If you are interested in c ++, I will do a subject training about the syntax of c + + .
