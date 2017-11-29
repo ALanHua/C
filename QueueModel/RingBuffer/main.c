@@ -20,6 +20,8 @@
 #define NULL_SIGNATURE 0x00000000
 
 #define CONFIG_NUMOF_RINGBUFFER_HANDLES (3)
+
+#define TEST_RING_BUFFER_SIZE    64
 /* ========================================================================== */
 /*                          数据结构定义区                                    */
 /* ========================================================================== */
@@ -223,14 +225,171 @@ size_t ringbuf_read(handle_t hdl,void* data,size_t size)
     return rb_read(base,data,size);
 }
 
-//size_t ringbuf_read_to(handle_t hdl,void* data,size_t size,uint8_t token)
-//{
-//    
-//}
+/**
+ 从指定内存处读取数据
+ @param hdl 句柄
+ @param data 数据地址
+ @param size 读取速度长度
+ @param token 查找字符
+ @return 实际读取长度
+ */
+size_t ringbuf_read_to(handle_t hdl,void* data,size_t size,uint8_t token)
+{
+    base_t*     base = (base_t*)hdl;
+    uint8_t*    p;
+    size_t      asize;
+    size_t      headlen;
+    size_t      tailLen;
+    
+    if (!base) {
+        return 0;
+    }
+    if (!data) {
+        return 0;
+    }
+    if (!size) {
+        return 0;
+    }
+    if (base->signature != RINGBUFFER_SIGNATURE) {
+        return 0;
+    }
+    
+    asize    = (base->used > size) ? size : base->used;
+    tailLen  = base->buffer_end - base->rp;
+    if (tailLen > asize) {
+        tailLen = asize;
+    }
+    headlen = asize - tailLen;
+    if (tailLen) {
+        p = memchr(base->rp, token, tailLen);
+        if (p) {
+            return rb_read(base, data, (p - base->rp) + 1);
+        }
+    }
+    
+    if (headlen) {
+        p = memchr(base->buffer_start, token, headlen);
+        if (p) {
+            return rb_read(base, data, (p - base->buffer_start) + 1);
+        }
+    }
+    
+    return rb_read(base,data,size);
+}
 
+size_t ringbuf_available(handle_t hdl)
+{
+    base_t* base = (base_t*)hdl;
+    if (!base) {
+        return 0;
+    }
+    
+    if (base->signature != RINGBUFFER_SIGNATURE) {
+        return 0;
+    }
+    return base->capacity - base->used;
+}
+
+size_t ringbuf_used(handle_t hdl)
+{
+    base_t* base = (base_t*)hdl;
+    if (!base) {
+        return 0;
+    }
+    
+    if (base->signature != RINGBUFFER_SIGNATURE) {
+        return 0;
+    }
+    return base->used;
+}
+
+size_t ringbuf_capacity(handle_t hdl)
+{
+    base_t* base = (base_t*)hdl;
+    if (!base) {
+        return 0;
+    }
+    
+    if (base->signature != RINGBUFFER_SIGNATURE) {
+        return 0;
+    }
+    
+    return base->capacity;
+}
+
+error_t ringbuf_purge(handle_t hdl)
+{
+    base_t* base = (base_t*)hdl;
+    if (!base) {
+        return 0;
+    }
+    
+    if (base->signature != RINGBUFFER_SIGNATURE) {
+        return 0;
+    }
+    
+    base->rp   = base->buffer_start;
+    base->wp   = base->buffer_start;
+    base->used = 0;
+    
+    return 0;
+}
 
 int main(int argc, const char * argv[]) {
     
+    handle_t  ringHdl;
+    uint8_t*  pMemory;
+    char      txdata[TEST_RING_BUFFER_SIZE] = "hello ring buffer";
+    char      rxdata[TEST_RING_BUFFER_SIZE * 2] = {0};
+    size_t    check_size;
+    
+    pMemory = (uint8_t*)malloc(TEST_RING_BUFFER_SIZE);
+    if (!pMemory) {
+        perror("can not malloc memory");
+        exit(-1);
+    }
+    ringHdl = ringbuf_create(pMemory,TEST_RING_BUFFER_SIZE);
+    if (!ringHdl) {
+        perror("ringbuf_create error");
+        exit(-1);
+    }
+    size_t txdata_len = sizeof(txdata);
+
+//    printf("--start---capacity: %zd----\n",ringbuf_capacity(ringHdl));
+//    printf("--start---available: %zd---\n",ringbuf_available(ringHdl));
+//    printf("--start---used: %zd---\n",ringbuf_used(ringHdl));
+    
+    check_size = ringbuf_write(ringHdl, txdata, txdata_len);
+    if (check_size != sizeof(txdata)) {
+        printf("ringbuf_write error: (%zd)%zd\n",txdata_len,check_size);
+        goto ringbuf_writeErr;
+    }
+    
+//    printf("--111---capacity: %zd----\n",ringbuf_capacity(ringHdl));
+//    printf("--111---available: %zd---\n",ringbuf_available(ringHdl));
+//    printf("--111---used: %zd---\n",ringbuf_used(ringHdl));
+    
+    check_size = ringbuf_read(ringHdl, rxdata,txdata_len);
+    if (check_size != txdata_len) {
+        printf("ringbuf_read error: (%zd)%zd\n",txdata_len,check_size);
+        goto ringbuf_writeErr;
+    }
+    puts(rxdata);
+//    printf("--222---capacity: %zd----\n",ringbuf_capacity(ringHdl));
+//    printf("--222---available: %zd---\n",ringbuf_available(ringHdl));
+//    printf("--222---used: %zd---\n",ringbuf_used(ringHdl));
+    
+    ringbuf_destory(ringHdl);
+    free(pMemory);
+    pMemory = NULL;
+    
+//    printf("ringbuf test over\n");
     
     return 0;
+    
+ringbuf_writeErr:
+    ringbuf_destory(ringHdl);
+    free(pMemory);
+    pMemory = NULL;
+    return -1;
 }
