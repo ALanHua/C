@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B810C6831EDF2028007F7EFE /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = B810C6821EDF2028007F7EFE /* main.c */; };
+		B83D2F23212B19D10059E99D /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = B83D2F22212B19D10059E99D /* main.c */; };
 		B85731751EF66878005F2C45 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = B85731741EF66878005F2C45 /* main.c */; };
 		B86927B9210CB0E20066C2CF /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = B86927B8210CB0E20066C2CF /* main.c */; };
 		B892055D1FA2241B0051B1E5 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = B892055C1FA2241B0051B1E5 /* main.c */; };
@@ -21,6 +22,15 @@
 
 /* Begin PBXCopyFilesBuildPhase section */
 		B810C67D1EDF2028007F7EFE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		B83D2F19212B19AB0059E99D /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -106,6 +116,8 @@
 /* Begin PBXFileReference section */
 		B810C67F1EDF2028007F7EFE /* QueueModel */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = QueueModel; sourceTree = BUILT_PRODUCTS_DIR; };
 		B810C6821EDF2028007F7EFE /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		B83D2F1B212B19AB0059E99D /* AVFifoBuffer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AVFifoBuffer; sourceTree = BUILT_PRODUCTS_DIR; };
+		B83D2F22212B19D10059E99D /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		B85731721EF66878005F2C45 /* LinkListMode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LinkListMode; sourceTree = BUILT_PRODUCTS_DIR; };
 		B85731741EF66878005F2C45 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		B86927B1210CB0BE0066C2CF /* memblock */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = memblock; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,6 +141,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		B810C67C1EDF2028007F7EFE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B83D2F18212B19AB0059E99D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -205,6 +224,7 @@
 				B8CD15041FB362520058B1D0 /* IPC_shareMemory */,
 				B8A912A81FCDB2090069D7EB /* RingBuffer */,
 				B86927B2210CB0BE0066C2CF /* memblock */,
+				B83D2F1C212B19AB0059E99D /* AVFifoBuffer */,
 				B810C6801EDF2028007F7EFE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -221,6 +241,7 @@
 				B8CD15031FB362520058B1D0 /* IPC_shareMemory */,
 				B8A912A71FCDB2080069D7EB /* RingBuffer */,
 				B86927B1210CB0BE0066C2CF /* memblock */,
+				B83D2F1B212B19AB0059E99D /* AVFifoBuffer */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -231,6 +252,14 @@
 				B810C6821EDF2028007F7EFE /* main.c */,
 			);
 			path = QueueModel;
+			sourceTree = "<group>";
+		};
+		B83D2F1C212B19AB0059E99D /* AVFifoBuffer */ = {
+			isa = PBXGroup;
+			children = (
+				B83D2F22212B19D10059E99D /* main.c */,
+			);
+			path = AVFifoBuffer;
 			sourceTree = "<group>";
 		};
 		B85731731EF66878005F2C45 /* LinkListMode */ = {
@@ -311,6 +340,23 @@
 			name = QueueModel;
 			productName = QueueModel;
 			productReference = B810C67F1EDF2028007F7EFE /* QueueModel */;
+			productType = "com.apple.product-type.tool";
+		};
+		B83D2F1A212B19AB0059E99D /* AVFifoBuffer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B83D2F21212B19AB0059E99D /* Build configuration list for PBXNativeTarget "AVFifoBuffer" */;
+			buildPhases = (
+				B83D2F17212B19AB0059E99D /* Sources */,
+				B83D2F18212B19AB0059E99D /* Frameworks */,
+				B83D2F19212B19AB0059E99D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AVFifoBuffer;
+			productName = AVFifoBuffer;
+			productReference = B83D2F1B212B19AB0059E99D /* AVFifoBuffer */;
 			productType = "com.apple.product-type.tool";
 		};
 		B85731711EF66878005F2C45 /* LinkListMode */ = {
@@ -463,6 +509,10 @@
 						CreatedOnToolsVersion = 8.3.2;
 						ProvisioningStyle = Automatic;
 					};
+					B83D2F1A212B19AB0059E99D = {
+						CreatedOnToolsVersion = 9.4.1;
+						ProvisioningStyle = Automatic;
+					};
 					B85731711EF66878005F2C45 = {
 						CreatedOnToolsVersion = 8.3.3;
 						ProvisioningStyle = Automatic;
@@ -518,6 +568,7 @@
 				B8CD15021FB362520058B1D0 /* IPC_shareMemory */,
 				B8A912A61FCDB2080069D7EB /* RingBuffer */,
 				B86927B0210CB0BE0066C2CF /* memblock */,
+				B83D2F1A212B19AB0059E99D /* AVFifoBuffer */,
 			);
 		};
 /* End PBXProject section */
@@ -528,6 +579,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B810C6831EDF2028007F7EFE /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B83D2F17212B19AB0059E99D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B83D2F23212B19D10059E99D /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,6 +758,53 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		B83D2F1F212B19AB0059E99D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		B83D2F20212B19AB0059E99D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1001,6 +1107,15 @@
 			buildConfigurations = (
 				B810C6871EDF2028007F7EFE /* Debug */,
 				B810C6881EDF2028007F7EFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B83D2F21212B19AB0059E99D /* Build configuration list for PBXNativeTarget "AVFifoBuffer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B83D2F1F212B19AB0059E99D /* Debug */,
+				B83D2F20212B19AB0059E99D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
