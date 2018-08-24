@@ -11,13 +11,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <assert.h>
 /* ========================================================================== */
 /*                           宏和类型定义区                                   */
 /* ========================================================================== */
-#define    ENOMEM        12        /* Cannot allocate memory */
-
+#define    ENOMEM        12    /* Cannot allocate memory */
+#define    EINVAL        22    /* Invalid argument */
 #define AVERROR(e) (-(e))   ///< Returns a negative error code from a POSIX error code, to return from library functions.
+
+#define FFMAX(a,b) ((a) > (b) ? (a) : (b))
+#define FFMAX3(a,b,c) FFMAX(FFMAX(a,b),c)
+#define FFMIN(a,b) ((a) > (b) ? (b) : (a))
+#define FFMIN3(a,b,c) FFMIN(FFMIN(a,b),c)
 /* ========================================================================== */
 /*                          数据结构定义区                                    */
 /* ========================================================================== */
@@ -134,7 +139,36 @@ int av_fifo_space(const AVFifoBuffer* f)
     return (uint32_t)(f->end - f->buffer) - av_fifo_size(f);
 }
 
-int av_fifo_realloc2(AVFifoBuffer* f,uint32_t new_size)
+void av_fifo_drain(AVFifoBuffer* f,int size)
+{
+    assert(av_fifo_size(f) >= size);
+    f->rptr += size;
+    if (f->rptr >= f->end) {
+        f->rptr -= f->end - f->buffer;
+    }
+    f->rndx += size;
+}
+
+int av_fifo_generic_read(AVFifoBuffer* f,void* dest,int buf_size,
+                         void (*func)(void*,void*,int))
+{
+    //    需要内存臂章，或者加锁
+    do{
+        int len = FFMIN((int)(f->end - f->rptr),buf_size);
+        if (func) {
+            func(dest,f->rptr,len);
+        }else{
+            memcpy(dest, f->rptr, len);
+            dest =(uint8_t*)dest + len;
+        }
+    //    需要内存臂章，或者加锁
+        av_fifo_drain(f,len);
+        buf_size -= len;
+    }while (buf_size > 0);
+    return 0;
+}
+
+int av_fifo_realloc2(AVFifoBuffer* f,unsigned int new_size)
 {
     uint32_t old_size = (uint32_t)(f->end - f->buffer);
     
@@ -144,9 +178,27 @@ int av_fifo_realloc2(AVFifoBuffer* f,uint32_t new_size)
         if (!f2) {
             return AVERROR(ENOMEM);
         }
-        
+        av_fifo_generic_read(f, f2->buffer, len, NULL);
+        f2->wptr += len;
+        f2->wndx += len;
+        free(f->buffer);
+        *f = *f2;
+        free(f2);
+    }
+    return 0;
+}
+
+int av_fifo_grow(AVFifoBuffer* f,unsigned int size)
+{
+    uint32_t old_size = (uint32_t)(f->end -f->buffer);
+    if (size + av_fifo_size(f) < size) {
+         return AVERROR(EINVAL);
     }
     
+    size += av_fifo_size(f);
+    if (old_size < size) {
+        return av_fifo_realloc2(f, FFMAX(size, 2*old_size));
+    }
     return 0;
 }
 
