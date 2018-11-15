@@ -9,30 +9,70 @@
 			<key>orderHint</key>
 			<integer>9</integer>
 		</dict>
+		<key>AVFifoBuffer.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
+		<key>BaseFrameWork.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
+		<key>BaseFundation.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
 		<key>IPC_Semaphore.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>5</integer>
+		</dict>
+		<key>IPC_Semaphore.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>IPC_ShareMemory.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>6</integer>
 		</dict>
+		<key>IPC_ShareMemory.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>IPC_msgq.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>3</integer>
+		</dict>
+		<key>IPC_msgq.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>IPC_msgq_client.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
+		<key>IPC_msgq_client.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>IPC_shareMemory.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>7</integer>
+		</dict>
+		<key>IPC_shareMemory.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 		<key>LinkListMode.xcscheme</key>
 		<dict>
@@ -49,7 +89,17 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>RingBuffer.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 		<key>memblock.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>memblock.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>8</integer>
